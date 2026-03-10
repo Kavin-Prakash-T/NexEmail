@@ -25,8 +25,7 @@ exports.registerUser = async (req, res) => {
         const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 
         const user = await User.create({ username, email, password, otp, otpExpiry });
-        return res.status(201).json({ message: "User registered successfully", user });
-
+        
         try{
           await sendEmail({
             to:email,
@@ -37,7 +36,11 @@ exports.registerUser = async (req, res) => {
             console.log({message:'Error sending OTP',error:error.message})
         }
 
+        return res.status(201).json({ message: "User registered successfully", user
+        });
+
     } catch (err) {
-        return res.status(500).json({ message: "Internal server error" });
+        console.error("Registration error:", err);
+        return res.status(500).json({ message: "Internal server error", error: err.message });
     }
 }

@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 
 const emailSender = async (options) => {
     try {
-        if (!process.env.EMAIL_USER || !process.env.USER_PASS) {
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
             throw new Error('Error credentials are not set in environment variables');
         }
 
@@ -26,3 +26,5 @@ const emailSender = async (options) => {
         console.log('Error sending email:', error.message);
     }
 }
+
+module.exports = emailSender;

@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
 
 const userSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
         required: true
     },
@@ -26,16 +26,14 @@ const userSchema = new mongoose.Schema({
     otpExpiry: {
         type: Date,
     }
-},
-)
+})
 
-userSchema.pre("save", async function (next) {
-    if (!this.modified('password')) {
-        return next()
+userSchema.pre("save", async function () {
+    if (!this.isModified('password')) {
+        return;
     }
     const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
-    next()
 })
 
 userSchema.methods.comparePassword = async function (enteredPassword) {
