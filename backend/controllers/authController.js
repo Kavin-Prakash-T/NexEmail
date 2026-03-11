@@ -44,3 +44,46 @@ exports.registerUser = async (req, res) => {
         return res.status(500).json({ message: "Internal server error", error: err.message });
     }
 }
+
+exports.verifyOTP=async(req,res)=>{
+    try{
+        const {email,otp}=req.body;
+
+        if(!email||!otp){
+            return res.status(400).json({message:"Email and OTP are required"})
+        }
+
+        const user=await User.findOne({email}).select("+otp +otpExpiry");
+
+        if(!user){
+            return res.status(400).json({message:"User not found"})
+        }
+
+        if(user.otp!==otp){
+            return res.status(400).json({message:"Invalid OTP"})
+        }
+
+        if(user.otpExpiry<Date.now()){
+            return res.status(400).json({message:"OTP Expired"})
+        }
+
+        user.isVerified=true;
+        user.otp=undefined;
+        user.otpExpiry=undefined;
+        await user.save();
+
+        return res.status(200).json({message:"Email verified successfully"})
+
+    }catch(err){
+        console.error("Verification error:",err);
+        return res.status(500).json({message:"Internal server error",error:err.message})
+    }
+}
+
+exports.loginUser=async(req,res)=>{
+    try{
+
+    }catch(error){
+        
+    }
+}
