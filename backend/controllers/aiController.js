@@ -197,11 +197,11 @@ Return ONLY valid JSON.`;
 
         // Save to history
         const historyEntry = await EmailHistory.create({
-            userId: req.user._id,
+            user: req.user._id,
             prompt: prompt.trim(),
             subject: emailData.subject,
             emailBody: emailData.emailBody,
-            linkedInDM: emailData.linkedInDM,
+            linkedInDm: emailData.linkedInDm,
             followUpEmail: emailData.followUpEmail
         });
 
@@ -225,7 +225,7 @@ Return ONLY valid JSON.`;
 
 exports.getHistory = async (req, res) => {
     try {
-        const history = await EmailHistory.find({ userId: req.user._id }).sort({ createdAt: -1 });
+        const history = await EmailHistory.find({ user: req.user._id }).sort({ createdAt: -1 });
         res.status(200).json(history);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch history' });
