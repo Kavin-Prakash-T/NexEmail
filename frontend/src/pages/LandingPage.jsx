@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/authContext';
+import { useAuth } from '../context/useAuth';
 import { ArrowRightIcon, BoltIcon, ChartBarIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 
 const LandingPage = () => {
@@ -25,21 +25,21 @@ const LandingPage = () => {
     ];
 
     return (
-        <div className="bg-white min-h-screen font-sans selection:bg-primary-100 selection:text-primary-900">
+        <div className="bg-white min-h-screen font-sans selection:bg-blue-100 selection:text-blue-900">
             {/* Navigation */}
             <nav className="border-b border-gray-100 bg-white/80 backdrop-blur-md fixed w-full z-50 transition-all">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         <div className="flex items-center">
-                            <span className="text-2xl font-black bg-linear-to-r from-primary-600 to-indigo-600 bg-clip-text text-transparent">
-                                NexMail AI
+                            <span className="text-2xl font-black bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                                NexEmail AI
                             </span>
                         </div>
                         <div className="flex items-center space-x-4">
                             {user ? (
                                 <Link
                                     to="/dashboard"
-                                    className="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-full text-white bg-primary-600 hover:bg-primary-700 hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-200"
+                                    className="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200"
                                 >
                                     Go to Dashboard
                                 </Link>
@@ -53,7 +53,7 @@ const LandingPage = () => {
                                     </Link>
                                     <Link
                                         to="/signup"
-                                        className="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-full text-white bg-primary-600 hover:bg-primary-700 hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-200"
+                                        className="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200"
                                     >
                                         Get Started
                                     </Link>
@@ -73,7 +73,7 @@ const LandingPage = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
                     <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 tracking-tight mb-8">
                         Write Cold Emails That <br className="hidden md:block" />
-                        <span className="text-transparent bg-clip-text bg-linear-to-r from-primary-600 to-indigo-600">Actually Get Replies</span>
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600">Actually Get Replies</span>
                     </h1>
                     <p className="mt-6 text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                         Stop wasting hours drafting outreach. Enter your prospect's context, and let our AI generate the perfect structured sequence. Email, Follow-up, and LinkedIn DM all at once.
@@ -101,8 +101,8 @@ const LandingPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {features.map((feature) => (
                             <div key={feature.name} className="relative p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                <div className="h-12 w-12 rounded-xl bg-primary-50 flex items-center justify-center mb-6">
-                                    <feature.icon className="h-6 w-6 text-primary-600" aria-hidden="true" />
+                                <div className="h-12 w-12 rounded-xl bg-blue-50 flex items-center justify-center mb-6">
+                                    <feature.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
                                 </div>
                                 <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.name}</h3>
                                 <p className="text-gray-600 leading-relaxed">{feature.description}</p>
@@ -125,7 +125,7 @@ const LandingPage = () => {
                         <div className="mt-10 flex items-center justify-center gap-x-6">
                             <Link
                                 to="/signup"
-                                className="rounded-full bg-primary-500 px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-all hover:scale-105"
+                                className="rounded-full bg-blue-500 px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:scale-105 hover:bg-blue-400 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
                             >
                                 Create Free Account
                             </Link>
@@ -147,9 +147,9 @@ const LandingPage = () => {
             <footer className="bg-white border-t border-gray-100 py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
                     <span className="text-xl font-black bg-linear-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-4">
-                        NexMail AI
+                        NexEmail AI
                     </span>
-                    <p className="text-gray-500 text-sm">© {new Date().getFullYear()} NexMail AI. All rights reserved.</p>
+                    <p className="text-gray-500 text-sm">© {new Date().getFullYear()} NexEmail AI. All rights reserved.</p>
                 </div>
             </footer>
         </div>
