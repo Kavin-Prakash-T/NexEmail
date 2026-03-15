@@ -12,7 +12,7 @@ const Navbar = () => {
             </div>
             {/* Mobile Title */}
             <div className="text-lg font-bold text-blue-600 md:hidden">
-                MailGen AI
+                NexEmail
             </div>
 
             <div className="flex items-center space-x-4">
