@@ -20,9 +20,13 @@ function AuthProvider({ children }) {
     })
 
     const login = (userData) => {
-        localStorage.setItem("userInfo", JSON.stringify(userData))
-        localStorage.setItem("token", userData.token)
-        setUser(userData)
+        const normalizedUser = userData?.user
+            ? { ...userData.user, token: userData.token }
+            : userData
+
+        localStorage.setItem("userInfo", JSON.stringify(normalizedUser))
+        localStorage.setItem("token", normalizedUser.token)
+        setUser(normalizedUser)
     }
 
     const logout = () => {

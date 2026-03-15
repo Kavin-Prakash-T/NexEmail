@@ -11,10 +11,9 @@ const VerifyOtp = () => {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    const userId = location.state?.userId;
     const email = location.state?.email;
 
-    if (!userId) {
+    if (!email) {
         navigate('/signup');
         return null;
     }
@@ -23,7 +22,7 @@ const VerifyOtp = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const { data } = await api.post('/api/auth/verify-otp', { userId, otp });
+            const { data } = await api.post('/api/auth/verify-otp', { email, otp });
             login(data);
             toast.success('Email verified successfully!');
             navigate('/dashboard');
