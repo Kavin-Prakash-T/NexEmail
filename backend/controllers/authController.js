@@ -9,8 +9,10 @@ const generateAuthToken = function (id) {
 
 exports.registerUser = async (req, res) => {
     try {
-        const { username, email, password } = req.body;
-        if (!username || !email || !password) {
+        const { username, name, email, password } = req.body;
+        const normalizedUsername = (username || name || '').trim();
+
+        if (!normalizedUsername || !email || !password) {
             return res.status(400).json({ message: "All fields are required" });
         }
         if (password.length < 6) {
@@ -30,7 +32,7 @@ exports.registerUser = async (req, res) => {
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 
-        const user = await User.create({ username, email, password, otp, otpExpiry });
+        const user = await User.create({ username: normalizedUsername, email, password, otp, otpExpiry });
 
         try {
             await sendEmail({
@@ -43,7 +45,9 @@ exports.registerUser = async (req, res) => {
         }
 
         return res.status(201).json({
-            message: "User registered successfully", user
+            message: "User registered successfully",
+            userId: user._id,
+            email: user.email,
         });
 
     } catch (err) {
@@ -80,7 +84,14 @@ exports.verifyOTP = async (req, res) => {
         await user.save();
 
         const token = generateAuthToken(user._id);
-        return res.status(200).json({ token, message: "Email verified successfully" })
+        return res.status(200).json({
+            token,
+            message: "Email verified successfully",
+            user: {
+                name: user.username,
+                email: user.email,
+            },
+        })
 
     } catch (err) {
         return res.status(500).json({ message: "Error in verifying OTP", error: err.message })
@@ -111,9 +122,16 @@ exports.loginUser = async (req, res) => {
         }
 
         const token = generateAuthToken(user._id);
-        return res.status(200).json({ message: "Login successful",token, user: { username: user.username, email: user.email } });
+        return res.status(200).json({
+            message: "Login successful",
+            token,
+            user: {
+                name: user.username,
+                email: user.email,
+            },
+        });
 
     } catch (error) {
-        return res.status(500).json({ message: "Error in logging in", error: err.message })
+        return res.status(500).json({ message: "Error in logging in", error: error.message })
     }
 }
