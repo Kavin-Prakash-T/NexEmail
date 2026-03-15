@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 
-const AuthContext = createContext()
+const authContext = createContext()
 
 function AuthProvider({ children }) {
     const [user, setUser] = useState(null)
@@ -33,10 +33,11 @@ function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout }}>
+        <authContext.Provider value={{ user, loading, login, logout }}>
             {children}
-        </AuthContext.Provider>
+        </authContext.Provider>
     )
 }
 
-export default AuthContext
+export { authContext };
+export default AuthProvider
